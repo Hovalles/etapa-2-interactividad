@@ -1,0 +1,97 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Proyecto Integrador - Usuarios",
+    "version": "1.0.0",
+    "description": "Documentación básica tipo Swagger/OpenAPI para el CRUD de usuarios."
+  },
+  "servers": [
+    {
+      "url": "http://localhost/etapa-4-cierre/api"
+    }
+  ],
+  "paths": {
+    "/usuarios.php": {
+      "get": {
+        "summary": "Consultar usuarios",
+        "responses": {
+          "200": {
+            "description": "Listado de usuarios"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear usuario",
+        "responses": {
+          "201": {
+            "description": "Usuario creado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar todos los usuarios usando ?all=1",
+        "responses": {
+          "200": {
+            "description": "Usuarios eliminados"
+          }
+        }
+      }
+    },
+    "/usuarios.php?id={id}": {
+      "get": {
+        "summary": "Consultar usuario por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar usuario por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar usuario por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario eliminado"
+          }
+        }
+      }
+    }
+  }
+}

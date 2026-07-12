@@ -18,13 +18,12 @@ function mostrarMensaje(texto, tipo = 'success') {
   mensajeFormulario.textContent = texto;
   mensajeFormulario.className = `form-message ${tipo}`;
   mensajeFormulario.hidden = false;
-  setTimeout(() => {
-    mensajeFormulario.hidden = true;
-  }, 4500);
+  setTimeout(() => { mensajeFormulario.hidden = true; }, 4500);
 }
 
 async function solicitarAPI(url, opciones = {}) {
   const respuesta = await fetch(url, {
+    credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json' },
     ...opciones
   });
@@ -34,6 +33,11 @@ async function solicitarAPI(url, opciones = {}) {
     datos = await respuesta.json();
   } catch (error) {
     throw new Error('El servidor devolvió una respuesta no válida.');
+  }
+
+  if (respuesta.status === 401) {
+    window.location.href = 'login.php';
+    return {};
   }
 
   if (!respuesta.ok) {
@@ -128,20 +132,16 @@ function validarFormulario(datos) {
   if (!datos.nombre || !datos.correo || !datos.telefono || !datos.usuario || !datos.rol) {
     return 'Complete todos los campos requeridos.';
   }
-
   if (!usuarioEditandoId && !datos.password) {
     return 'La contraseña es obligatoria para crear el usuario.';
   }
-
   if (datos.password && datos.password.length < 6) {
     return 'La contraseña debe tener mínimo 6 caracteres.';
   }
-
   const telefonoDominicano = /^(809|829|849)-?\d{3}-?\d{4}$/;
   if (!telefonoDominicano.test(datos.telefono)) {
     return 'Ingrese un teléfono dominicano válido, por ejemplo 809-555-1234.';
   }
-
   return '';
 }
 
@@ -208,7 +208,6 @@ registroForm.addEventListener('submit', async (event) => {
 
 async function eliminarUsuario(id, nombre) {
   if (!confirm(`¿Seguro que desea eliminar a ${nombre}?`)) return;
-
   try {
     await solicitarAPI(`${API_URL}?id=${id}`, { method: 'DELETE' });
     mostrarMensaje('Usuario eliminado correctamente.');
@@ -224,9 +223,7 @@ limpiarTabla.addEventListener('click', async () => {
     mostrarMensaje('No hay usuarios para eliminar.', 'error');
     return;
   }
-
   if (!confirm('¿Seguro que desea eliminar todos los usuarios de la base de datos?')) return;
-
   try {
     await solicitarAPI(`${API_URL}?all=1`, { method: 'DELETE' });
     finalizarEdicion();
