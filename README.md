@@ -1,7 +1,7 @@
 # Proyecto Integrador – Etapa 4: Cierre del Proyecto
 
 ## Participante
-Hector Ovalles
+Dariel Medina Ynfante Líder Héctor Antonio Ovalles Alonzo Junior Alejandro Gómez Ruiz Rafael David Sánchez Arias Rafael Alejandro Grullón Germán Nicole Cepeda Acosta
 
 ## Descripción
 Esta versión corresponde al cierre del proyecto. Integra la etapa de backend y persistencia de datos con una interfaz refactorizada usando Bootstrap, CRUD completo y autenticación básica mediante sesiones PHP.
