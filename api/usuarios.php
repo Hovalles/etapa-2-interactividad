@@ -1,9 +1,8 @@
 <?php
-
 declare(strict_types=1);
 
-session_start();
 require_once dirname(__DIR__) . '/config/database.php';
+require_once dirname(__DIR__) . '/config/auth.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
@@ -14,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
     exit;
 }
+
+requerirAdministradorApi();
 
 function responder(array $datos, int $codigo = 200): never
 {
@@ -127,9 +128,8 @@ try {
             'comentario' => $datos['comentario']
         ]);
 
-        $nuevoId = (int) $pdo->lastInsertId();
-        $_SESSION['ultimo_usuario_id'] = $nuevoId;
-        responder(['mensaje' => 'Usuario creado correctamente.', 'id' => $nuevoId], 201);
+        $_SESSION['ultimo_usuario_id'] = (int) $pdo->lastInsertId();
+        responder(['mensaje' => 'Usuario creado correctamente.', 'id' => $_SESSION['ultimo_usuario_id']], 201);
     }
 
     if ($metodo === 'PUT') {

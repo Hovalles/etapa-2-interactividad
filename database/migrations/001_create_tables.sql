@@ -1,7 +1,5 @@
--- Base de datos del Proyecto Integrador - Etapa 4
--- Motor utilizado: SQLite
-
-PRAGMA foreign_keys = ON;
+-- Migración 001: creación de tablas principales
+-- Etapa 4 - Cierre del Proyecto
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,8 +23,3 @@ CREATE TABLE IF NOT EXISTS usuarios_sistema (
     activo INTEGER NOT NULL DEFAULT 1,
     creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
--- Usuario administrador de prueba.
--- Correo: admin@grupo9.com
--- Contraseña: Admin123
--- El hash real se genera automáticamente desde PHP en config/database.php con password_hash().
